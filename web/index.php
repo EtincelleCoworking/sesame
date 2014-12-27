@@ -3,10 +3,10 @@
 use Symfony\Component\HttpFoundation\Response;
 
 require_once __DIR__.'/../vendor/autoload.php';
-
+require_once __DIR__.'/../app/MyApplication.php';
 $app = new MyApplication();
 
-$app->get('/api/log', function($when, $kind, $fingerprint_id, $result) use($app) {
+$app->post('/api/log', function($when, $kind, $fingerprint_id, $result) use($app) {
     /** @var MyApplication $app */
     $app->log(sprintf('log - when: [%s], kind: [%s], fingerprint_id: [%s], result: [%s]', $when, $kind, $fingerprint_id, $result));
     return new Response('OK', 200);
@@ -23,5 +23,10 @@ $app->post('/api/user/{user_id}/fingerprint', function($user_id, $id, $image) us
     $app->log(sprintf('createFingerprint - user_id: [%s], id: [%s], email: [%s]', $user_id, $id, $image));
     return new Response('OK', 200);
 });
+
+$app->get('/', function() use($app) {
+    return new Response('Etincelle Coworking - Sesame', 200);
+});
+
 
 $app->run();
