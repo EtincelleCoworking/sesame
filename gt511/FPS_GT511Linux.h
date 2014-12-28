@@ -320,7 +320,7 @@ class FPS_GT511
 	//	(MAX_FGP_COUNT + 3) - Device error
 	// Not implemented due to memory restrictions on the arduino
 	// may revisit this if I find a need for it
-	//int SetTemplate(byte* tmplt, int id, bool duplicateCheck);
+	int SetTemplate(byte* tmplt, int fgpid, bool duplicateCheck);
 
 	// Commands that are not implemented (and why)
 	// VerifyTemplate1_1 - Couldn't find a good reason to implement this on an arduino

@@ -695,7 +695,7 @@ bool FPS_GT511::GetImage()
 }
 
 
-bool FPS_GT511::SetTemplate(int fgpid, byte * data) {
+int FPS_GT511::SetTemplate(byte* tmplt, int fgpid, bool duplicateCheck) {
 
     return false;
 }

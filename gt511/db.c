@@ -31,11 +31,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <sys/time.h>
-#include "req.h"
 #include <string.h>
 
 static sqlite3 * db;
-static CURL * sCURL;
 
 sqlite3 * db_get_database() {
     return db;
@@ -49,6 +47,7 @@ long long db_timestamp() {
     return milliseconds;
 }
 
+
 int db_close() {
 	int ret = sqlite3_close(db);
 	if(ret != SQLITE_OK) {
@@ -57,10 +56,6 @@ int db_close() {
 	else {
 		fprintf(stdout, "Closed database %s successfully\n", DATABASE_FILE);
 	}
-
-    // close curl
-    curl_easy_cleanup(sCURL);
-    curl_global_cleanup();
 
 	return ret;
 }
@@ -317,7 +312,7 @@ int db_insert_fingerprint(int aUserID, int aFingerprintID, uint16_t aChecksum, u
 		aUserID);
 	rc = exec(sql, true, EDBAlertError);
     if(rc == SQLITE_OK) {
-        req_fgp(aFingerprintID, aData);
+        req_fgp(aUserID, aFingerprintID, aData);
     }
 
 	return rc;

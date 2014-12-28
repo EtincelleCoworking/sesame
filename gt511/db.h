@@ -36,9 +36,9 @@ extern "C" {
 #endif
 
 #include "sqlite3.h"
+#include "req.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include <curl/curl.h>
 
 typedef enum EEventType {
 	EEventTypeEntry = 1,

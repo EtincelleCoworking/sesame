@@ -8,14 +8,17 @@
 
 #include "FPS_GT511Linux.h"
 #include "db.h"
-#include <malloc.h>
+#include <sys/malloc.h>
 #include "req.h"
 
-
-#define GT511_PORT_ENTRY    ttyUSB0
-#define GT511_PORT_EXIT     ttyUSB1
-#define GT511_PORT_ENROLL   ttyUSB0
-
+#ifdef __APPLE__
+#  define GT511_PORT_ENTRY    apple_ttyUSB0
+#  define GT511_PORT_ENROLL   apple_ttyUSB0
+#else
+#  define GT511_PORT_ENTRY    ttyUSB0
+#  define GT511_PORT_EXIT     ttyUSB1
+#  define GT511_PORT_ENROLL   ttyUSB0
+#endif
 
 char * getline(void) {
     size_t lenmax = 100, len = lenmax;
@@ -216,7 +219,8 @@ int main() {
     // init sqlite and curl
     db_open();
     req_init();
-
+    
+//    blink(GT511_PORT_ENTRY);
 //    int baud = 9600;
 //    char mode[] = {'8', 'N', '1', 0};
 //    FPS_GT511 fps(GT511_PORT_ENROLL, baud, mode);

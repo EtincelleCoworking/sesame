@@ -36,5 +36,8 @@ typedef enum ESerialPort {
 	cuaU0,
 	cuaU1,
 	cuaU2,
-	cuaU3
+	cuaU3,
+#ifdef __APPLE__
+    apple_ttyUSB0
+#endif
 } ESerialPort;

@@ -41,27 +41,39 @@
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__)  /* Linux & FreeBSD */
 
 
-int Cport[38],
+#ifdef __APPLE__
+#  define COMPORT_NUM 39
+#else
+#  define COMPORT_NUM 38
+#endif
+
+
+int Cport[COMPORT_NUM],
     error;
 
 struct termios new_port_settings,
-       old_port_settings[38];
+       old_port_settings[COMPORT_NUM];
 
-char comports[38][16]={"/dev/ttyS0","/dev/ttyS1","/dev/ttyS2","/dev/ttyS3","/dev/ttyS4","/dev/ttyS5",
+char comports[COMPORT_NUM][32]={"/dev/ttyS0","/dev/ttyS1","/dev/ttyS2","/dev/ttyS3","/dev/ttyS4","/dev/ttyS5",
                        "/dev/ttyS6","/dev/ttyS7","/dev/ttyS8","/dev/ttyS9","/dev/ttyS10","/dev/ttyS11",
                        "/dev/ttyS12","/dev/ttyS13","/dev/ttyS14","/dev/ttyS15","/dev/ttyUSB0",
                        "/dev/ttyUSB1","/dev/ttyUSB2","/dev/ttyUSB3","/dev/ttyUSB4","/dev/ttyUSB5",
                        "/dev/ttyAMA0","/dev/ttyAMA1","/dev/ttyACM0","/dev/ttyACM1",
                        "/dev/rfcomm0","/dev/rfcomm1","/dev/ircomm0","/dev/ircomm1",
                        "/dev/cuau0","/dev/cuau1","/dev/cuau2","/dev/cuau3",
-                       "/dev/cuaU0","/dev/cuaU1","/dev/cuaU2","/dev/cuaU3"};
+                       "/dev/cuaU0","/dev/cuaU1","/dev/cuaU2","/dev/cuaU3"
+#ifdef __APPLE__
+                        ,
+                        "/dev/tty.usbserial-A601KUF6"
+#endif
+};
 
 int RS232_OpenComport(int comport_number, int baudrate, const char *mode)
 {
   int baudr,
       status;
 
-  if((comport_number>37)||(comport_number<0))
+  if((comport_number > COMPORT_NUM)|| (comport_number < 0))
   {
     printf("illegal comport number\n");
     return(1);
