@@ -33,7 +33,10 @@ $app->post('/api/log/intercom', function(Request $request) use($app) {
 
 $app->post('/api/user', function(Request $request) use($app) {
     /** @var MyApplication $app */
-    $app->log(sprintf('createUser - id: [%s], email: [%s]', $request->get('id'), $request->get('email')));
+    $app->log(sprintf('createUser - id: [%s], nick: [%s], email: [%s]', 
+        $request->get('id'), 
+        $request->get('nick'), 
+        $request->get('email')));
     return new Response('OK', 200);
 });
 
