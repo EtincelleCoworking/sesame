@@ -11,10 +11,11 @@ $app['debug'] = true;
 
 $app->post('/api/log/fingerprint', function(Request $request) use($app) {
     /** @var MyApplication $app */
-    $app->log(sprintf('log - when: [%s], kind: [%s], fingerprint_id: [%s], result: [%s]',
+    $app->log(sprintf('log - when: [%s], kind: [%s], fingerprint_id: [%s], detection_ms: [%s], result: [%s]',
         $request->get('when'),
         $request->get('kind'),
         $request->get('fingerprint_id'),
+        $request->get('detection_ms'),
         $request->get('result')
     ));
     return new Response('OK', 200);
