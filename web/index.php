@@ -9,12 +9,22 @@ require_once __DIR__.'/../app/MyApplication.php';
 $app = new MyApplication();
 $app['debug'] = true;
 
-$app->post('/api/log', function(Request $request) use($app) {
+$app->post('/api/log/fingerprint', function(Request $request) use($app) {
     /** @var MyApplication $app */
     $app->log(sprintf('log - when: [%s], kind: [%s], fingerprint_id: [%s], result: [%s]',
         $request->get('when'),
         $request->get('kind'),
         $request->get('fingerprint_id'),
+        $request->get('result')
+    ));
+    return new Response('OK', 200);
+});
+
+$app->post('/api/log/intercom', function(Request $request) use($app) {
+    /** @var MyApplication $app */
+    $app->log(sprintf('log - when: [%s], numpresses: [%s], result: [%s]',
+        $request->get('when'),
+        $request->get('numpresses'),
         $request->get('result')
     ));
     return new Response('OK', 200);
